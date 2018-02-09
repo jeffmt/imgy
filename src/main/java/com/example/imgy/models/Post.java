@@ -35,9 +35,12 @@ public class Post {
     //private Blob image;
 
     public Post() {
+        this.created = new Date();
+        System.out.println("in default constructor");
     }
 
     public Post(String description) {
+        System.out.println("in non default constructor");
         this.description = description;
         this.likes = 0;
         this.views = 0;
