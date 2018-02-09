@@ -1,4 +1,4 @@
-package com.example.imgy;
+package com.example.imgy.controllers;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
