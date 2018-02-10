@@ -15,6 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("users")
 public class UserController {
 
     @Autowired
@@ -23,12 +24,12 @@ public class UserController {
     @Autowired
     private PostDao postDao;
 
-    @GetMapping("/users")
+    @GetMapping("")
     public Iterable<User> retrieveAllUsers() {
         return userDao.findAll();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("{id}")
     public User retrievePost(@PathVariable int id) {
         User user = userDao.findOne(id);
         if (user == null)
@@ -36,7 +37,7 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/users")
+    @PostMapping("")
     public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
         System.out.println("in UserController, user is : " + user);
         User createdUser = userDao.save(user);
@@ -47,7 +48,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/users/{id}/posts")
+    @GetMapping("{id}/posts")
     public List<Post> retrieveUserPosts(@PathVariable int id) {
         User user = userDao.findOne(id);
         if (user == null)
@@ -55,7 +56,7 @@ public class UserController {
         return user.getPosts();
     }
 
-    @PostMapping("/users/{id}/posts")
+    @PostMapping("{id}/posts")
     public ResponseEntity<Object> createPost(@PathVariable int id, @Valid @RequestBody Post post) {
         User user = userDao.findOne(id);
         if (user == null)
