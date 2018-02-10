@@ -13,10 +13,11 @@ public class User {
     @Id
     @GeneratedValue
     private int id;
+
     private int role_id;
 
     @NotNull
-    @Size(min=5, max=15, message = "Username must be between 5 and 15 letters long")
+    @Size(min=2, message = "Username should be at least 2 characters long")
     private String username;
 
     @Email
@@ -29,14 +30,27 @@ public class User {
 //    @ManyToOne
 //    private Role role;
 
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Comment> comments = new ArrayList<>();
 
     public User() {
+        System.out.println("in User's default constructor");
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public User(String username, String email, String password) {
+        System.out.println("in User's non default constructor");
         this.username = username;
         this.email = email;
         this.password = password;
@@ -54,5 +68,16 @@ public class User {
         this.email = email;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", role_id=" + role_id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", posts=" + posts +
+                ", comments=" + comments +
+                '}';
+    }
 }

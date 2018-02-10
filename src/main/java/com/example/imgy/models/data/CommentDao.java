@@ -8,5 +8,5 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface CommentDAO extends CrudRepository<Comment, Integer> {
+public interface CommentDao extends CrudRepository<Comment, Integer> {
 }

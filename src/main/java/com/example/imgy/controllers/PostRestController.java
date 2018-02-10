@@ -1,21 +1,20 @@
 package com.example.imgy.controllers;
 
-import com.example.imgy.PostNotFoundException;
+import com.example.imgy.exception.PostNotFoundException;
 import com.example.imgy.models.Post;
-import com.example.imgy.models.data.PostDAO;
+import com.example.imgy.models.data.PostDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 public class PostRestController {
 
     @Autowired
-    private PostDAO postDao;
+    private PostDao postDao;
 
     @GetMapping("/posts")
     public Iterable<Post> retrieveAllPosts() {

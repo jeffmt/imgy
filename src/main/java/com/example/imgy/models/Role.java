@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
 @Entity
 public class Role {
 
@@ -44,3 +45,4 @@ public class Role {
         return users;
     }
 }
+*/

@@ -1,5 +1,7 @@
 package com.example.imgy.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -18,6 +20,10 @@ public class Post {
     private int likes;
     private int views;
     private int points;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
 
     private Date created;
 
@@ -47,6 +53,7 @@ public class Post {
         this.points = 0;
         this.created = new Date();
     }
+
 
     public int getId() {
         return id;
@@ -88,6 +95,28 @@ public class Post {
         this.points++;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", likes=" + likes +
+                ", views=" + views +
+                ", points=" + points +
+                ", user=" + user +
+                ", created=" + created +
+                ", tags=" + tags +
+                ", comments=" + comments +
+                '}';
+    }
     /*
     public byte[] getPhoto() {
 
