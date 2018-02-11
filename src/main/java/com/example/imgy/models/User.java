@@ -17,13 +17,14 @@ public class User {
     private int role_id;
 
     @NotNull
+    @Column(unique=true)
     @Size(min=2, message = "Username should be at least 2 characters long")
     private String username;
 
     @Email
     private String email;
 
-    //@Size(min=6, message = "Password must be at least 6 characters long")
+    @Size(min=6, message = "Password must be at least 6 characters long")
     @NotNull
     private String password;
 
