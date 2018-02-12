@@ -3,8 +3,10 @@ package com.example.imgy.controllers;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import com.example.imgy.exception.DaoSavingException;
 import com.example.imgy.exception.PostNotFoundException;
 import com.example.imgy.exception.UserNotFoundException;
+import com.example.imgy.models.Comment;
 import com.example.imgy.models.Post;
 import com.example.imgy.models.User;
 import com.example.imgy.models.data.PostDao;
@@ -53,12 +55,16 @@ public class UserController {
 
     @PostMapping("")
     public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
-        System.out.println("in UserController, user is : " + user);
-        User createdUser = userDao.save(user);
+        try {
+            User createdUser = userDao.save(user);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdUser.getId()).toUri();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdUser.getId()).toUri();
 
-        return ResponseEntity.created(location).build();
+            return ResponseEntity.created(location).build();
+        }
+        catch (Exception ex) {
+            throw new DaoSavingException("Duplicate username");
+        }
     }
 
     @DeleteMapping("{id}")
@@ -117,5 +123,13 @@ public class UserController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("{id}/comments")
+    public List<Comment> retrieveUserComments(@PathVariable int id) {
+        User user = userDao.findOne(id);
+        if (user == null)
+            throw new UserNotFoundException("id-" + id);
+        return user.getComments();
     }
 }

@@ -69,6 +69,10 @@ public class User {
         return password;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
