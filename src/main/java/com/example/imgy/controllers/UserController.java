@@ -1,5 +1,8 @@
 package com.example.imgy.controllers;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import com.example.imgy.exception.PostNotFoundException;
 import com.example.imgy.exception.UserNotFoundException;
 import com.example.imgy.models.Post;
@@ -7,6 +10,8 @@ import com.example.imgy.models.User;
 import com.example.imgy.models.data.PostDao;
 import com.example.imgy.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -31,11 +36,19 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public User retrieveUser(@PathVariable int id) {
+    public Resource<User> retrieveUser(@PathVariable int id) {
         User user = userDao.findOne(id);
         if (user == null)
             throw new UserNotFoundException("id-" + id);
-        return user;
+
+        Resource<User> resource = new Resource<User>(user);
+
+        ControllerLinkBuilder linkTo =
+                linkTo(methodOn(this.getClass()).retrieveAllUsers());
+
+        resource.add(linkTo.withRel("all-users"));
+
+        return resource;
     }
 
     @PostMapping("")
@@ -59,6 +72,26 @@ public class UserController {
         if (user == null)
             throw new UserNotFoundException("id-" + id);
         return user.getPosts();
+    }
+
+    @GetMapping("{user_id}/posts/{post_id}")
+    public Resource<Post> retrieveUserPost(@PathVariable int user_id, @PathVariable int post_id) {
+        Post post = postDao.findOne(post_id);
+        if (post == null)
+            throw new PostNotFoundException("post_id-" + post_id);
+
+        if (post.getUser().getId() != user_id)
+            throw new UserNotFoundException("user_id-" + user_id);
+
+
+        Resource<Post> resource = new Resource<Post>(post);
+
+        ControllerLinkBuilder linkTo =
+                linkTo(methodOn(this.getClass()).retrieveUserPosts(user_id));
+
+        resource.add(linkTo.withRel("all-posts"));
+
+        return resource;
     }
 
     @DeleteMapping("{user_id}/posts/{post_id}")
