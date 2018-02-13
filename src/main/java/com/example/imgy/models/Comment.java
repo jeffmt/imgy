@@ -47,6 +47,24 @@ public class Comment {
         return post;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setUser(User user) {
+
+        this.user = user;
+    }
+
+    public void setText(String text) {
+
+        this.text = text;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
     public User getUser() {
         return user;
     }
