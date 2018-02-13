@@ -8,6 +8,8 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
     @Id
@@ -26,6 +28,7 @@ public class User {
 
     @Size(min=6, message = "Password must be at least 6 characters long")
     @NotNull
+    @JsonIgnore
     private String password;
 
 //    @ManyToOne
