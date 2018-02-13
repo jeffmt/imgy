@@ -117,6 +117,10 @@ public class Post {
                 ", comments=" + comments +
                 '}';
     }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
     /*
     public byte[] getPhoto() {
 
@@ -144,6 +148,7 @@ public class Post {
         } finally {
             return imgData;
         }
+
     }
     */
 }
