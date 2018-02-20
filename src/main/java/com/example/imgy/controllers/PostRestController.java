@@ -16,6 +16,7 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 
 import java.net.URI;
 
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("posts")
 public class PostRestController {
