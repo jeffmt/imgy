@@ -121,34 +121,5 @@ public class Post {
     public List<Comment> getComments() {
         return comments;
     }
-    /*
-    public byte[] getPhoto() {
 
-        byte[] imgData = null;
-        Blob img = null;
-        ResultSet rs = null;
-        Statement stmt = null;
-
-        try {
-
-            conn = getConnection();
-            String sqlQ = "SELECT CONTENT_FILE FROM CONTENT where id = 'something';
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sqlQ);
-
-            while (rs.next()) {
-                img = rs.getBlob("CONTENT_FILE");
-                imgData = img.getBytes(1, (int) img.length());
-            }
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            return imgData;
-        }
-
-    }
-    */
 }
