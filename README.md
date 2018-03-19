@@ -10,7 +10,7 @@ https://github.com/jeffmt/imgy_frontend
 
 ![RestAPI](RestAPI.png "Rest API")
 
-## Wireframe Prototypes
+## Wireframe Prototypes of frontend
 
 ![Home](Home.png "Home")
 
