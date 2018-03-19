@@ -37,7 +37,7 @@ public class Post {
 
     @Lob
     @Basic(fetch=FetchType.LAZY)
-    private byte[] image;
+    private String image;
     //private Blob image;
 
     public Post() {
@@ -45,15 +45,23 @@ public class Post {
         System.out.println("in default constructor");
     }
 
-    public Post(String description) {
+    public Post(String description, String image) {
         System.out.println("in non default constructor");
         this.description = description;
         this.likes = 0;
         this.views = 0;
         this.points = 0;
         this.created = new Date();
+        this.image = image;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public int getId() {
         return id;
