@@ -41,9 +41,7 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Comment> comments = new ArrayList<>();
 
-    public User() {
-        System.out.println("in User's default constructor");
-    }
+    public User() { }
 
     public List<Post> getPosts() {
         return posts;

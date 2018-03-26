@@ -46,6 +46,25 @@ public class PostRestController {
         return resource;
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public Resource<Post> incrementPostViews(@PathVariable int id) {
+        Post post = postDao.findOne(id);
+        if (post == null)
+            throw new PostNotFoundException("id-" + id);
+
+        post.setViews(post.getViews() + 1);
+        postDao.save(post);
+
+        Resource<Post> resource = new Resource<Post>(post);
+
+        ControllerLinkBuilder linkTo =
+                linkTo(methodOn(this.getClass()).retrieveAllPosts());
+
+        resource.add(linkTo.withRel("all-posts"));
+
+        return resource;
+    }
+
     @PostMapping("")
     public ResponseEntity<Object> createPost(@RequestBody Post post) {
         Post createdPost = postDao.save(post);

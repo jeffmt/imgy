@@ -42,11 +42,11 @@ public class Post {
 
     public Post() {
         this.created = new Date();
-        System.out.println("in default constructor");
+//        System.out.println("in default constructor");
     }
 
     public Post(String description, String image) {
-        System.out.println("in non default constructor");
+//        System.out.println("in non default constructor");
         this.description = description;
         this.likes = 0;
         this.views = 0;
@@ -85,6 +85,10 @@ public class Post {
 
     public int getViews() {
         return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 
     public Date getCreated() {
